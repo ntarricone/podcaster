@@ -3,7 +3,7 @@ import { IPodcast } from './interfaces/IPodcast';
 
 const podcast = (podcasts: Entry[]): IPodcast[] =>
   podcasts.map((podcast) => ({
-    id: podcast.id.label,
+    id: podcast.id.attributes['im:id'],
     title: podcast['im:name'].label,
     author: podcast['im:artist'].label,
     description: podcast.summary.label,
