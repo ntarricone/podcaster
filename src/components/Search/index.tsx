@@ -13,7 +13,7 @@ export default function Search({ onSearch, length }: IProps) {
       <input
         type="text"
         placeholder="Filter podcasts..."
-        className="w-100"
+        className="w-full"
         onChange={({ target }) => onSearch(target.value)}
       />
     </div>

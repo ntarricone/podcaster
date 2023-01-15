@@ -5,7 +5,7 @@ import s from './styles.module.css';
 export default function SnapCard({ id, img, title, author }: IPodcast) {
   return (
     <Link to={`/podcast/${id}`}>
-      <div className={`${s.card} relative flex flex-column`} data-testid="card">
+      <div className={`${s.card} relative flex flex-column shadow`} data-testid="card">
         <div className={`absolute ${s.img}`} style={{ backgroundImage: `url(${img})` }} />
         <div className={s.spacing} />
         <div className="flex flex-column">

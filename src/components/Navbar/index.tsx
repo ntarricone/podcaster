@@ -3,7 +3,7 @@ import s from './styles.module.css';
 
 export default function Navbar() {
   return (
-    <nav className={`flex between mt-10 ${s.nav}`}>
+    <nav className={`flex between align-center ${s.nav}`}>
       <div>
         <Link to="/">
           <p>Podcaster</p>
