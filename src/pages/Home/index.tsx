@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SnapCard from '../../components/Cards/SnapCard';
 import Grid from '../../components/Grid';
+import PageLoader from '../../components/PageLoader';
 import Search from '../../components/Search';
 import useFetchData from '../../hooks/useFetchData';
 import { IFetchedPodcasts } from '../../interfaces/IFetchedPodcasts';
@@ -13,7 +14,7 @@ const API = import.meta.env.VITE_API_URL_TOP_PODCASTS;
 
 export default function Home() {
   const { data, error, isLoading }: { data: IFetchedPodcasts; error: any; isLoading: boolean } =
-    useFetchData(API);
+    useFetchData({ url: API });
 
   const [filter, setFilter] = useState<{ search: string }>({ search: '' });
 
@@ -23,14 +24,9 @@ export default function Home() {
 
   if (error) return <h3>Data could not be fetched correctly :(</h3>;
 
-  if (!data || isLoading)
-    return (
-      <div className={s.loading}>
-        <div className="spinner" />
-      </div>
-    );
+  if (!data || isLoading) return <PageLoader />;
 
-  const podcasts: IPodcast[] = transform.podcast(data.feed.entry);
+  const podcasts: IPodcast[] = transform.podcasts(data.feed.entry);
 
   const filteredPodcasts = podcasts.filter(({ title, author }) => {
     if (!filter.search) return podcasts;
