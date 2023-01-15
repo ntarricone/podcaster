@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Episode from './pages/Episode';
 import Home from './pages/Home';
 import Podcast from './pages/Podcast';
+import PodcastLayout from './components/Layouts/PodcastLayout';
 
 const App: FC = () => {
   return (
@@ -11,8 +12,22 @@ const App: FC = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/podcast/:podcastId" element={<Podcast />} />
-        <Route path="/podcast/:podcastId/episode/:episodeId" element={<Episode />} />
+        <Route
+          path="/podcast/:podcastId"
+          element={
+            <PodcastLayout>
+              <Podcast />
+            </PodcastLayout>
+          }
+        />
+        <Route
+          path="/podcast/:podcastId/episode/:episodeId"
+          element={
+            <PodcastLayout>
+              <Episode />
+            </PodcastLayout>
+          }
+        />
       </Routes>
     </>
   );

@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.sidebar {
+  width: 350px;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  margin-left: 350px;
+  width: -webkit-fill-available;
+}
