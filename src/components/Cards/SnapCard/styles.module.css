@@ -1,0 +1,25 @@
+.card {
+  box-shadow: lightgrey 1px 1px 4px 0px;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 3px;
+  min-height: 140px;
+  height: min-content;
+  justify-content: flex-end;
+}
+
+.img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+}
+
+.spacing {
+  height: 90px;
+}
