@@ -1,14 +1,17 @@
+import { Link } from 'react-router-dom';
 import s from './styles.module.css';
 
 export default function Navbar() {
   return (
-    <nav className={`flex between ${s.nav}`}>
+    <nav className={`flex between mt-10 ${s.nav}`}>
       <div>
-        <p>Podcaster</p>
+        <Link to="/">
+          <p>Podcaster</p>
+        </Link>
       </div>
-      {/* TODO - Eventually a loader will be needed for page transition */}
+      {/* TODO - Make spinner appear only on page transition*/}
       {/* <div>
-        <p>Loader</p>
+        <div className="spinner" />
       </div> */}
     </nav>
   );
