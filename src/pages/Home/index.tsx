@@ -23,7 +23,12 @@ export default function Home() {
 
   if (error) return <h3>Data could not be fetched correctly :(</h3>;
 
-  if (!data || isLoading) return <div className="flex justify-center mt-10 ">Loading...</div>;
+  if (!data || isLoading)
+    return (
+      <div className={s.loading}>
+        <div className="spinner" />
+      </div>
+    );
 
   const podcasts: IPodcast[] = transform.podcast(data.feed.entry);
 
