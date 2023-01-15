@@ -1,39 +1,50 @@
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchData from '../../../hooks/useFetchData';
+import { IEpisode } from '../../../interfaces/IEpisode';
 import { IFetchedPodcast } from '../../../interfaces/IFetchedPodcast';
+import { transform } from '../../../transforms';
 import DetailedCard from '../../Cards/DetailedCard';
+import Error from '../../Error';
 import PageLoader from '../../PageLoader';
 import s from './styles.module.css';
 
 const API = import.meta.env.VITE_API_URL_PODCAST_DETAIL;
 
+export const EpisodesContext = createContext<IEpisode[]>([]);
+
 export default function PodcastLayout({ children }: { children: ReactNode }) {
   const { podcastId } = useParams();
 
-  const { data, isLoading, error }: { data: IFetchedPodcast; isLoading: boolean; error: any } =
-    useFetchData(API + podcastId);
+  const [podcastUrl, setPodcastUrl] = useState('');
 
-  if (error) return <h3>Data could not be fetched correctly :(</h3>;
+  const { data }: { data: IFetchedPodcast } = useFetchData({ url: API + podcastId });
+  const { data: podcastData, isLoading, error } = useFetchData({ url: podcastUrl, type: 'xml' });
 
-  if (!data && isLoading) return <PageLoader />;
+  useEffect(() => {
+    if (!data) return;
+    setPodcastUrl(data.results[0].feedUrl);
+  }, [data]);
 
-  //TODO  - change for actual data
-  //need to find where episodes are coming from and transform them
-  const podcast = {
-    title: 'Soy un titulo',
-    author: 'Soy un autor',
-    img: 'https://is3-ssl.mzstatic.com/image/thumb/Podcasts113/v4/07/88/b3/0788b35f-1829-6fbd-2488-ecaf83b8d8ab/mza_9852863690630397024.jpg/170x170bb.png',
-    description:
-      'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum '
-  };
+  if (error) {
+    console.log(error);
+    return <Error />;
+  }
+  if (!podcastData || isLoading) return <PageLoader />;
+
+  const podcast = transform.podcast({
+    fetchedPodcastXML: podcastData,
+    podcastId: podcastId!
+  });
 
   return (
     <div className={s.container}>
       <aside className={s.sidebar}>
         <DetailedCard {...podcast} />
       </aside>
-      <main className={s.main}>{children}</main>
+      <EpisodesContext.Provider value={podcast.episodes}>
+        <main className={s.main}>{children}</main>
+      </EpisodesContext.Provider>
     </div>
   );
 }
