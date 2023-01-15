@@ -4,3 +4,23 @@ export const normalizeString = (string: string): string => {
 
   return normalizedString;
 };
+
+export const shortenString = ({
+  string,
+  characters
+}: {
+  string: string;
+  characters: number;
+}): string => {
+  if (string?.length > characters) return string.split('').slice(0, characters).join('') + '...';
+  return string;
+};
+
+export const formatDate = (propDate: string) => {
+  const date = new Date(propDate);
+  const f = new Intl.DateTimeFormat('es-us', {
+    dateStyle: 'short'
+  });
+
+  return f.format(date);
+};
