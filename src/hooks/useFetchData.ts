@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
+import * as xmljs from 'xml-js';
 
-const useFetchData = (url: string) => {
+const useFetchData = ({ url, type = 'json' }: { url?: string; type?: 'json' | 'xml' }) => {
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!url) return;
       setIsLoading(true);
 
       // check for data in localstorage
@@ -28,16 +30,23 @@ const useFetchData = (url: string) => {
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        const jsonData = await response.json();
+        let responseData = type === 'json' ? await response.json() : await response.text();
+
+        //parse xml data into json
+        if (type === 'xml') {
+          responseData = xmljs.xml2json(responseData, { compact: true, spaces: 4 });
+          responseData = JSON.parse(responseData);
+        }
+
         // save the data to localstorage with a timestamp
         localStorage.setItem(
           url,
           JSON.stringify({
             timestamp: new Date(),
-            data: jsonData
+            data: responseData
           })
         );
-        setData(jsonData);
+        setData(responseData);
         setIsLoading(false);
       } catch (err: any) {
         setError(err);
