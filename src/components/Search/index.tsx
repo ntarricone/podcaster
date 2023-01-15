@@ -5,9 +5,8 @@ interface IProps {
 export default function Search({ onSearch, length }: IProps) {
   return (
     <div className="flex">
-      {length && (
+      {!!length && (
         <div className="badge mr-10">
-          {/* TODO - Below number needs to be dynamic */}
           <p>{length}</p>
         </div>
       )}

@@ -17,17 +17,30 @@ a:hover {
 body {
   max-width: 1100px;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 90vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* FONT  */
+p {
+  all: unset;
+}
+.bold {
+  font-weight: bold;
 }
 
-.flex {
-  display: flex;
+.w-100 {
+  width: 100%;
 }
+
+/* MARGINS & PADDINGS  */
+.mt-10 {
+  margin-top: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+/* POSITIONS */
 
 .relative {
   position: relative;
@@ -35,6 +48,15 @@ h1 {
 
 .absolute {
   position: absolute;
+}
+
+/* FLEX */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .between {
@@ -45,6 +67,40 @@ h1 {
   justify-content: space-around;
 }
 
-.center {
+.justify-center {
   justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+.end {
+  justify-content: flex-end;
+}
+
+/* MISC  */
+.badge {
+  background-color: rgba(58, 99, 195, 0.811);
+  color: white;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
