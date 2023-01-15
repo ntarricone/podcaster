@@ -1,0 +1,16 @@
+.header {
+  font-size: 25px;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  padding: 8px;
+  border-bottom: 1px solid lightgray;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd73;
+}
