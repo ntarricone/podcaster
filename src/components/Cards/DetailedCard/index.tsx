@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IPodcast } from '../../../interfaces/IPodcast';
+import { shortenString } from '../../../utils';
 import s from './styles.module.css';
 
 export default function DetailedCard(podcast: Partial<IPodcast>) {
@@ -17,10 +18,12 @@ export default function DetailedCard(podcast: Partial<IPodcast>) {
           <p>{author}</p>
         </div>
       </Link>
-      <div className="mt-10">
-        <p className="flex flex-column bold">Description:</p>
-        <p className="mt-10">{description}</p>
-      </div>
+      {description && (
+        <div className="mt-10">
+          <p className="flex flex-column bold">Description:</p>
+          <p className="mt-10">{shortenString({ string: description, characters: 300 })}</p>
+        </div>
+      )}
     </div>
   );
 }
