@@ -16,7 +16,7 @@ export const shortenString = ({
   return string;
 };
 
-export const formatDate = (propDate: string) => {
+export const formatDate = (propDate: string): string => {
   const date = new Date(propDate);
   const f = new Intl.DateTimeFormat('es-us', {
     dateStyle: 'short'
