@@ -132,3 +132,11 @@ h4 {
 .pointer {
   cursor: pointer;
 }
+
+.hidden {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
